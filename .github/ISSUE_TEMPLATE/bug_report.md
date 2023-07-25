@@ -21,7 +21,7 @@ Description of the behavior that was observed, including screenshots or other re
 <!--
 Relevant logs from:
  * the command line
- * ~/.kolibri/logs/kolibri.txt
+ * Application logs, e.g.: ~/.kolibri/logs/kolibri.txt
  * the browser console
 
 Please wrap errors in triple backticks for clean formatting like this:
@@ -57,7 +57,7 @@ Precise steps that someone else can follow in order to see this behavior
 ## Context
 <!--
 Tell us about your environment, including:
- * Kolibri version
+ * Software version
  * Operating system
  * Browser
 -->
