@@ -1,0 +1,31 @@
+name: Update PR Spreadsheet
+
+on:
+  workflow_call:
+    inputs:
+      pr_data:
+        required: true
+        type: string
+
+jobs:
+  update-spreadsheet:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run script
+      run: |
+        node scripts/update-pr-spreadsheet.js"${{ inputs.pr_data }}"
+      env:
+        SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+        SHEET_NAME: ${{ secrets.SHEET_NAME }}
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
