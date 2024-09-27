@@ -26,6 +26,6 @@ jobs:
       run: |
         node scripts/update-pr-spreadsheet.js"${{ inputs.pr_data }}"
       env:
-        SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
-        SHEET_NAME: ${{ secrets.SHEET_NAME }}
+        SPREADSHEET_ID: ${{ secrets.CONTRIBUTIONS_SPREADSHEET_ID }}
+        SHEET_NAME: ${{ secrets.CONTRIBUTIONS_SHEET_NAME }}
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
