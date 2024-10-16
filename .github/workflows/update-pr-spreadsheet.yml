@@ -1,30 +1,40 @@
 name: Update PR Spreadsheet
-
 on:
   workflow_call:
     inputs:
       pr_data:
         required: true
         type: string
-
 jobs:
   update-spreadsheet:
     runs-on: ubuntu-latest
     steps:
+      # Checkout the code for the test-actions repository
     - name: Checkout code
-      uses: actions/checkout@v2
-
+      uses: actions/checkout@v4
+      
+      # Checkout the .github repository in a different directory
+    - name: Checkout .github repository
+      uses: actions/checkout@v4
+      with:
+        repository: learningequality/.github
+        path: .github-repo  # Specify a different directory for .github repo
+      
+      # Setup Node.js
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
         node-version: '20'
-
+      
+      # Install dependencies from the .github repository
     - name: Install dependencies
       run: npm install
-
+      working-directory: .github-repo 
+      
+      # Run the update-pr-spreadsheet script
     - name: Run script
       run: |
-        node scripts/update-pr-spreadsheet.js"${{ inputs.pr_data }}"
+        node .github-repo/scripts/update-pr-spreadsheet.js "${{ inputs.pr_data }}"
       env:
         SPREADSHEET_ID: ${{ secrets.CONTRIBUTIONS_SPREADSHEET_ID }}
         SHEET_NAME: ${{ secrets.CONTRIBUTIONS_SHEET_NAME }}
