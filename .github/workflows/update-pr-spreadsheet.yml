@@ -5,6 +5,13 @@ on:
       pr_data:
         required: true
         type: string
+    secrets:
+      CONTRIBUTIONS_SPREADSHEET_ID:
+        required: true
+      CONTRIBUTIONS_SHEET_NAME:
+        required: true
+      GH_UPLOADER_GCP_SA_CREDENTIALS:
+        required: true
 jobs:
   update-spreadsheet:
     runs-on: ubuntu-latest
