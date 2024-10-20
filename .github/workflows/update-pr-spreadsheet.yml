@@ -12,6 +12,10 @@ jobs:
   update-spreadsheet:
     runs-on: ubuntu-latest
     steps:
+      # Checkout the code for the test-actions repository
+    - name: Checkout code
+      uses: actions/checkout@v4
+
       # Checkout the .github repository
     - name: Checkout .github repository
       uses: actions/checkout@v4
