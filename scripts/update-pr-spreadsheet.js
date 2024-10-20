@@ -1,8 +1,4 @@
-const fs = require('fs');
 const { google } = require('googleapis');
-
-// Read the event payload
-const eventPayload = JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8'));
 
 // Extract relevant data from the event payload
 const extractPRData = (payload) => {
@@ -22,8 +18,6 @@ const extractPRData = (payload) => {
     state: pr.state
   };
 };
-
-const prData = extractPRData(eventPayload);
 
 const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
 const SHEET_NAME = process.env.SHEET_NAME;
@@ -173,7 +167,11 @@ try {
   process.exit(1);
 }
 
-// Run the script
+// Get the GitHub event data
+const githubEvent = JSON.parse(process.env.GITHUB_EVENT);
+
+// Extract PR data and run the script
+const prData = extractPRData(githubEvent);
 handlePullRequestChange(prData).catch((error) => {
   console.error("An error occurred:", error.message);
   process.exit(1);
