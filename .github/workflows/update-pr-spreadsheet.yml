@@ -15,7 +15,7 @@ jobs:
       # Checkout the code for the test-actions repository
     - name: Checkout code
       uses: actions/checkout@v4
-
+      
       # Checkout the .github repository
     - name: Checkout .github repository
       uses: actions/checkout@v4
@@ -41,4 +41,4 @@ jobs:
         SPREADSHEET_ID: ${{ secrets.CONTRIBUTIONS_SPREADSHEET_ID }}
         SHEET_NAME: ${{ secrets.CONTRIBUTIONS_SHEET_NAME }}
         GOOGLE_CREDENTIALS: ${{ secrets.GH_UPLOADER_GCP_SA_CREDENTIALS }}
-        GITHUB_EVENT_PATH: ${{ github.event_path }}
+        GITHUB_EVENT: ${{ toJson(github.event) }}
