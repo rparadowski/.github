@@ -1,4 +1,23 @@
-const { google } = require("googleapis");
+const { google } = require('googleapis');
+
+// Extract relevant data from the event payload
+const extractPRData = (payload) => {
+  const pr = payload.pull_request;
+  return {
+    merged_at: pr.merged_at,
+    html_url: pr.html_url,
+    user_login: pr.user.login,
+    title: pr.title,
+    repo_name: pr.base.repo.name,
+    updated_at: pr.updated_at,
+    requested_reviewers: pr.requested_reviewers.map(r => r.login).join(','),
+    assignees: pr.assignees.map(a => a.login).join(','),
+    user_site_admin: pr.user.site_admin,
+    user_type: pr.user.type,
+    author_association: pr.author_association,
+    state: pr.state
+  };
+};
 
 const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
 const SHEET_NAME = process.env.SHEET_NAME;
@@ -148,17 +167,12 @@ try {
   process.exit(1);
 }
 
-// Parse command-line arguments
-let pullRequest;
-try {
-  pullRequest = JSON.parse(process.argv[2]);
-} catch (error) {
-  console.error(`Failed to parse pull request data: ${error.message}`);
-  process.exit(1);
-}
+// Get the GitHub event data
+const githubEvent = JSON.parse(process.env.GITHUB_EVENT);
 
-// Run the script
-handlePullRequestChange(pullRequest).catch((error) => {
+// Extract PR data and run the script
+const prData = extractPRData(githubEvent);
+handlePullRequestChange(prData).catch((error) => {
   console.error("An error occurred:", error.message);
   process.exit(1);
 });
