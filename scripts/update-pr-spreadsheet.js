@@ -58,7 +58,7 @@ async function authorize() {
 async function updateSpreadsheet(pullRequest) {
   const sheets = await authorize();
   const prData = [
-    pullRequest.state === "closed" && pullRequest.merged_at? pullRequest.merged_at.split("T")[0].replace("'", "") : pullRequest.state === "closed"? "closed": pullRequest.state,
+    pullRequest.merged_at ? pullRequest.merged_at.split("T")[0].replace("'", "") : pullRequest.state === "closed" ? "closed" : pullRequest.state,
     pullRequest.html_url || "",
     pullRequest.user_login || "",
     pullRequest.title || "",
