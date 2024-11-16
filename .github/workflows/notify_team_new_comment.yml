@@ -10,9 +10,9 @@ jobs:
 
     if: >-
       ${{
-        !github.event.issue.pull_request &&
-        github.event.comment.author_association != 'MEMBER' &&
-        github.event.comment.author_association != 'OWNER'
+        !github.event.issue.pull_request #&&
+#       github.event.comment.author_association != 'MEMBER' &&
+#       github.event.comment.author_association != 'OWNER'
       }}
 
     runs-on: ubuntu-latest
@@ -25,7 +25,7 @@ jobs:
 
       - name: Send message to Slack channel
         env:
-          #            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+#           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
             SLACK_WEBHOOK_URL: "https://hooks.slack.com/triggers/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"
             SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
         uses: slackapi/slack-github-action@v1.27.0
