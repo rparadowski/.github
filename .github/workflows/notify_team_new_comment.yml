@@ -8,10 +8,10 @@ jobs:
   contributor_issue_comment:
     name: Contributor issue comment
 
-    if: >-
-      ${{
-        !github.event.issue.pull_request
-      }}
+#   if: >-
+#     ${{
+#       !github.event.issue.pull_request
+#     }}
 #     ${{
 #       !github.event.issue.pull_request &&
 #       github.event.comment.author_association != 'MEMBER' &&
